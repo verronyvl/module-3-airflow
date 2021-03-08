@@ -16,9 +16,10 @@ default_args = {
 
 dag = DAG("spacex", default_args=default_args, schedule_interval="0 0 1 1 *")
 
+rkt = "falcon9"
 t1 = BashOperator(
     task_id="get_data", 
-    bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{ execution_date.year }} -r {{ 'falcon9' }} -o /var/data", 
+    bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{ execution_date.year }} -r {{ 'falcon9' }} -o /var/data/"+rkt, 
     dag=dag
 )
 
