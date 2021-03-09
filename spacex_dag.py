@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    "start_date": datetime(2018, 1, 1),
+    "start_date": datetime(2005, 1, 1),
     "email": ["airflow@airflow.com"],
     "email_on_failure": False,
     "email_on_retry": False,
@@ -16,7 +16,7 @@ default_args = {
 
 dag = DAG("spacex", default_args=default_args, schedule_interval="0 0 1 1 *")
 
-rkt = ['falcon1', 'falcon9', 'falconheavy']
+rkt = ['all', 'falcon1', 'falcon9', 'falconheavy']
 for i in rkt:
     t1 = BashOperator(
         task_id="get_data_"+i, 
