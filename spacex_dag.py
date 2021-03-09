@@ -20,13 +20,13 @@ rkt = ['falcon1', 'falcon9', 'falconheavy']
 for i in rkt:
     t1 = BashOperator(
         task_id="get_data_"+i, 
-        bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{ execution_date.year }} -r i -o /var/data/", 
+        bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{{{ execution_date.year }}}} -r {} -o /var/data/".format(i), 
         dag=dag
     )
     
     t2 = BashOperator(
         task_id="print_data_"+i, 
-        bash_command="cat /var/data/year={{ execution_date.year }}/rocket={}/data.csv".format(i), 
+        bash_command="cat /var/data/year={{{{ execution_date.year }}}}/rocket={}/data.csv".format(i), 
         #params={"rocket": i}, # falcon1/falcon9/falconheavy
         dag=dag
     )
